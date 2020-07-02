@@ -49,6 +49,7 @@
     padding: 3px 0px 12px 0;
     border-bottom: 1px dashed #CCC;
 	text-align: left;
+	transition: 350ms all !important;
 }
 .nfyWrap .itemBox-new {
     background: #FE8;

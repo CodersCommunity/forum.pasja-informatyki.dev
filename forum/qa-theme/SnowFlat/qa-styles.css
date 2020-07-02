@@ -44,6 +44,7 @@ html {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	outline: none !important;
 }
 
 html, body {
@@ -875,6 +876,7 @@ blockquote p {
 .qa-nav-user-item {
 	padding: 0 20px;
 	border-bottom: 1px solid #2c3e50;
+	transition: 350ms all !important;
 }
 .qa-nav-user-item:last-child {
 	border-bottom: none;
@@ -4962,4 +4964,8 @@ form div.qa-q-view-content
 .pw-link-admins::after {
 width: 300px;
 padding: 10px;
+}
+
+button, a {
+transition: 350ms all;
 }

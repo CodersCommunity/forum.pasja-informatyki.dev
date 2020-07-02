@@ -10,6 +10,10 @@
 	}
 }
 
+button, a {
+transition: 350ms all;
+}
+
 .qa-form-light-button-answer {
 	background-color: #3a404b;
 	color: $color;

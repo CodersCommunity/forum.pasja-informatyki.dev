@@ -13,6 +13,7 @@
 		border-bottom: 1px dashed $border;
 		background: $bcg;
 		color: $color;
+		transition: 350ms all !important;
 	}
 	.nfyWrap .nfyFooter, .nfyWrap .nfyTop {
 		background: $bcg-dark;
