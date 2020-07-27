@@ -92,27 +92,55 @@
 	margin: 4px 4px 0 5px;
 	vertical-align: top;
 }
+
 .nicon.nanswer {
 	background:url(icons.png) no-repeat 0 0;
 }
+
 .nicon.ncomment {
 	background:url(icons.png) no-repeat 0 -16px;
 }
+
 .nicon.nvoteup {
 	background:url(icons.png) no-repeat 0 -32px;
 }
+
 .nicon.nvotedown {
 	background:url(icons.png) no-repeat 0 -48px;
 }
+
 .nicon.nbestanswer {
 	background:url(icons.png) no-repeat 0 -64px;
 }
+
+.nicon.nunbestanswer {
+    background:url(icons.png) no-repeat 0 -64px;
+}
+
 .nicon.nmessage {
 	background:url(icons.png) no-repeat 0 -80px;
 }
+
 .nicon.nwallpost {
 	background:url(icons.png) no-repeat 0 -96px;
 }
+
+.nicon.nflag {
+    background:url(icons.png) no-repeat 0 -96px;
+}
+
+.nicon.nunflag {
+    background:url(icons.png) no-repeat 0 -96px;
+}
+
+.nicon.nblock {
+    background:url(icons.png) no-repeat 0 -96px;
+}
+
+.nicon.nunblock {
+    background:url(icons.png) no-repeat 0 -96px;
+}
+
 .nfyWhat {
 	padding-top:3px;
 }
