@@ -174,7 +174,7 @@ class qa_html_theme_base
 	Output the widgets (as provided in $this->content['widgets']) for $region and $place
 */
 	{
-		if (count(@$this->content['widgets'][$region][$place])) {
+		if (isset($this->content['widgets'][$region][$place]) && count(@$this->content['widgets'][$region][$place])) {
 			$this->output('<div class="qa-widgets-'.$region.' qa-widgets-'.$region.'-'.$place.'">');
 
 			foreach ($this->content['widgets'][$region][$place] as $module) {
@@ -574,7 +574,7 @@ class qa_html_theme_base
 			(@$navlink['state'] ? (' qa-'.$class.'-'.$navlink['state']) : '').' qa-'.$class.'-'.$suffix.'">');
 		$this->nav_link($navlink, $class);
 
-		if (count(@$navlink['subnav']))
+		if (isset($navlink['subnav']) && count(@$navlink['subnav']))
 			$this->nav_list($navlink['subnav'], $class, 1+$level);
 
 		$this->output('</li>');

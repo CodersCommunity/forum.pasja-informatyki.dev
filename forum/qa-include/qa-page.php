@@ -516,11 +516,12 @@
 		$navpages=qa_db_get_pending_result('navpages');
 		$widgets=qa_db_get_pending_result('widgets');
 
-		if (isset($categoryids) && !is_array($categoryids)) // accept old-style parameter
-			$categoryids=array($categoryids);
-
-		$lastcategoryid=count($categoryids) ? end($categoryids) : null;
-		$charset = 'utf-8';
+        // accept old-style parameter
+		if (isset($categoryids) && !is_array($categoryids)) {
+            $categoryids = [$categoryids];
+            $lastcategoryid = count($categoryids) ? end($categoryids) : null;
+        }
+        $charset = 'utf-8';
 
 		$qa_content=array(
 			'content_type' => 'text/html; charset='.$charset,

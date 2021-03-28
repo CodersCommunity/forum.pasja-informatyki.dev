@@ -110,7 +110,7 @@
 		if (empty($qa_content['page_links']))
 			$qa_content['suggest_next']=$suggest;
 
-		if (qa_using_categories() && count($navcategories) && isset($categorypathprefix))
+		if (isset($navcategories, $categorypathprefix) && qa_using_categories() && count($navcategories))
 			$qa_content['navigation']['cat']=qa_category_navigation($navcategories, $categoryid, $categorypathprefix, $categoryqcount, $categoryparams);
 
 		if (isset($feedpathprefix) && (qa_opt('feed_per_category') || !isset($categoryid)) )

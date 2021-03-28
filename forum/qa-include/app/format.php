@@ -334,7 +334,7 @@
 			if (@$options['categoryview'] && isset($post['categoryname']) && isset($post['categorybackpath'])) {
 				$favoriteclass='';
 
-				if (count(@$favoritemap['category'])) {
+				if (isset($favoritemap['category']) && count(@$favoritemap['category'])) {
 					if (@$favoritemap['category'][$post['categorybackpath']])
 						$favoriteclass=' qa-cat-favorited';
 
@@ -1507,7 +1507,7 @@
 	also combine multiple DOM IDs using JavaScript(=PHP) operators. This is twisted but rather convenient.
 */
 	{
-		$function='qa_display_rule_'.count(@$qa_content['script_lines']);
+		$function='qa_display_rule_'.count($qa_content['script_lines'] ?? []);
 
 		$keysourceids=array();
 
