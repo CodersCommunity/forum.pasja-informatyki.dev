@@ -1,0 +1,13 @@
+{
+    "name": "Auto-send register PW message.",
+    "uri": "https://github.com/CodersCommunity/forum.pasja-informatyki.local",
+    "description": "This plugin automatically send private message to new user.",
+    "version": "1.0",
+    "date": "2018-06-10",
+    "author": "Mariusz08",
+    "author_uri": "https://forum.pasja-informatyki.pl/user/Mariusz08",
+    "license": "GNU GPL v2",
+    "update_uri": "https://github.com/CodersCommunity/forum.pasja-informatyki.local",
+    "min_q2a": "1.7",
+    "min_php": "5.3"
+}
