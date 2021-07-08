@@ -1,0 +1,13 @@
+{
+  "name": "Google Authenticator 2-factor authentication for Q2A",
+  "description": "This plugin provides a Google 2FA security for users on forum",
+  "version": "1.0",
+  "date": "2018-05-30",
+  "author": "Marek Woś",
+  "author_uri": "http://github.com/event15",
+  "license": "GPLv2",
+  "update_uri": "Web address for Q2A to check for updates",
+  "min_q2a": "1.7",
+  "min_php": "5.4",
+  "load_order": "Bootstrap moment in which the plugin will be loaded"
+}

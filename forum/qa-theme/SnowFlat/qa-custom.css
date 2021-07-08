@@ -1,0 +1,50 @@
+.qa-custom-center {
+    text-align: center;
+    line-height: 1.5em;
+}
+
+.qa-custom-center a {
+    color: #fff;
+    border-bottom: 1px dotted #fff;
+}
+.qa-custom-center a:hover {
+    color: #fff;
+    border-bottom: 0;
+}
+
+.qa-custom-center h2 {
+    text-align: left;
+    margin: 0;
+    padding-bottom: 0.83em;
+}
+
+.qa-custom-2fa-text {
+    padding-top: 0.5em;
+    /*line-height: 1.5em;*/
+    font-size: 1em;
+    border-top: 1px solid #313640;
+    border-bottom: 1px solid #313640;
+}
+
+.qa-custom-2fa-text p {
+    margin: 0;
+    padding-bottom: 0.5em;
+}
+
+.qa-custom-2fa-qrcode {
+    text-align: center;
+    margin-bottom: 1.5em
+}
+
+.qa-custom-2fa-qrcode img {
+    border-radius: 10px;
+    border: 1px solid #0f192a;
+}
+
+.qa-custom-2fa-code {
+    text-align: center;
+}
+
+.qa-custom-2fa-text-bottom {
+    margin-bottom: 1.5em
+}

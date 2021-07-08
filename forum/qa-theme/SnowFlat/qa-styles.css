@@ -8,6 +8,7 @@
 	Theme License: GPLv2
 */
 
+@import "./qa-custom.css";
 
 .qa-q-item-clear, .clearfix, .qa-nav-main-list, .qa-nav-sub, .qam-qa-list-meta-box, .qa-q-item-avatar-meta, .qa-page-links, .qa-page-links-list, .qa-template-admin .qa-message-buttons, .qam-approve-users .qa-message-item, .qa-message-item, .qa-part-q-view, .qa-q-view-buttons, .qa-part-form-q-edit, .qa-a-list-item, .qa-a-item-buttons, .qa-c-item-buttons, .qa-c-item-clear, .qam-footer-row, .qa-nav-footer-list, .qa-footer-clear {
 	*zoom: 1;

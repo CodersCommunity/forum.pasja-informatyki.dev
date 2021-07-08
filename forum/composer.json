@@ -1,6 +1,8 @@
 {
   "name": "coderscommunity/forum",
   "require": {
-    "sentry/sentry": "^1.0"
+    "sentry/sentry": "^1.0",
+    "ext-mbstring": "*",
+    "ext-intl": "*"
   }
 }

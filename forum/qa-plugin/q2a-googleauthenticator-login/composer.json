@@ -1,0 +1,20 @@
+{
+    "name": "event15/q2a-googleauthenticator-login",
+    "type": "library",
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Marek Woś",
+            "email": "mwos@getresponse.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "CodersCommunity\\": "src/"
+        }
+    },
+    "require": {
+        "robthree/twofactorauth": "dev-master"
+    }
+}
