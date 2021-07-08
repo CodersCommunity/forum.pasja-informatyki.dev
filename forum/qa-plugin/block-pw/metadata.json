@@ -1,0 +1,12 @@
+{
+  "name": "Block pm",
+  "uri": "https://forum.pasja-informatyki.pl",
+  "description": "Very powerful and useful plugin for blocking pm from unpleasant users :)",
+  "version": "1.0",
+  "date": "2020-03-16",
+  "author": "Mariusz08",
+  "author_uri": "https://forum.pasja-informatyki.pl/user/Mariusz08",
+  "license": "GPLv3+",
+  "min_q2a": "1.5",
+  "min_php_ver": "7.1"
+}
