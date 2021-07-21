@@ -17,7 +17,7 @@ class discord_api
             'client_secret' => qa_opt('discord_integration_client_secret'),
             'grant_type' => 'authorization_code',
             'redirect_uri' => qa_path_absolute('chat-discord')
-        ]), [], 'POST');
+        ],'', '&'), [], 'POST');
     }
 
     public function get_user($token)

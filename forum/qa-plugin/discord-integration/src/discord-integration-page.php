@@ -139,7 +139,7 @@ class discord_integration_page
                     'response_type' => 'code',
                     'redirect_uri' => qa_path_absolute($this->page_uri),
                     'prompt' => 'none'
-                ]);
+                ],'', '&');
             $qa_content['custom'] .= '<p class="connect-button">
                 <a href="' . $url . '" class="qa-form-tall-button">' . qa_lang_html('discord_integration/join') . '</a>
             </p>';

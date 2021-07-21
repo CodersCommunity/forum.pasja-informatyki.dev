@@ -22,6 +22,7 @@
     To start, copy this file to qa-config.php and modify it if you need.
     Don't modify and don't remove this file!
 */
+define('QA_ENVIRONMENT', 'local'); // production or local
 
 define('QA_MYSQL_HOSTNAME', 'forum-mysql');
 define('QA_MYSQL_USERNAME', 'test');

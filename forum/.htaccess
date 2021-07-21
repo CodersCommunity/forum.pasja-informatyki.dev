@@ -32,3 +32,26 @@ ErrorDocument 403 /vagrant/forum/index.php
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.*$ index.php?qa-rewrite=$0&%{QUERY_STRING} [L]
 </IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SameOrigin"
+    # na sam początek wolimy na krótko
+    Header always set Strict-Transport-Security "max-age=3600;"
+
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header unset X-Powered-By
+    Header unset Server
+
+    # to będzie wykorzystane wraz z report-to w CSP gdy zbiore wszystko, co potrzeba
+    Header set Report-To "{\"group\":\"csp-endpoint\",\"max_age\":31536000,\"endpoints\":[{\"url\":\"https://forumpasjainformatyki.report-uri.com/a/d/g\"}],\"include_subdomains\":true}"
+
+    # nastepny krok to "enforce, max-age=30, report-uri=\"https://forumpasjainformatyki.report-uri.com/r/d/ct/enforce\""
+    Header set Expect-CT "max-age=0, report-uri=\"https://forumpasjainformatyki.report-uri.com/r/d/ct/reportOnly\""
+    Header set Upgrade-Insecure-Requests "1"
+
+    # Tryb Report-Only z wizzardem report-uri (pomoze ogarnac caly bajzel)
+    Header set Content-Security-Policy-Report-Only "default-src 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests; block-all-mixed-content; report-uri https://forumpasjainformatyki.report-uri.com/r/d/csp/wizard;"
+    # max strict ckeditor (na przyszlosc):
+    # default-src 'none'; connect-src 'self'; script-src 'self'; img-src 'self'; style-src 'self'; frame-src 'self'
+</IfModule>

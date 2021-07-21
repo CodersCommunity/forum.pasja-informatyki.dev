@@ -924,7 +924,7 @@ abstract class BaseFacebook
     if ($this->getFileUploadSupport()) {
       $opts[CURLOPT_POSTFIELDS] = $params;
     } else {
-      $opts[CURLOPT_POSTFIELDS] = http_build_query($params, null, '&');
+      $opts[CURLOPT_POSTFIELDS] = http_build_query($params, '', '&');
     }
     $opts[CURLOPT_URL] = $url;
 
@@ -1128,7 +1128,7 @@ abstract class BaseFacebook
       $url .= $path;
     }
     if ($params) {
-      $url .= '?' . http_build_query($params, null, '&');
+      $url .= '?' . http_build_query($params, '', '&');
     }
 
     return $url;

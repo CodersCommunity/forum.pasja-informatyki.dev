@@ -30,6 +30,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_11.x | bash - && apt-get install
 
 COPY forum.conf /etc/apache2/sites-available/
 RUN a2enmod rewrite
+RUN a2enmod headers
+RUN a2enmod expires
 RUN a2dissite 000-default && a2ensite forum.conf
 
 RUN usermod -u 1000 www-data
