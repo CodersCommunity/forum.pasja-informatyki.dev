@@ -173,6 +173,10 @@
 		'reshow_a_popup' => "Wyświetl tą odpowiedź",
 		'reshow_c_popup' => "Wyświetl ten komentarz",
 		'reshow_q_popup' => "Wyświetl to pytanie",
+
+		'question_closed' => "Nie można dodać odpowiedzi, ponieważ pytanie zostało zamknięte.",
+		'question_hidden' => "Nie można dodać odpowiedzi, ponieważ pytanie zostało ukryte.",
+		'question_answer_hidden' => "Nie można dodać komentarza, ponieważ post został ukryty.",
 	);
 
 /*

@@ -173,6 +173,9 @@
 		'your_answer_title' => 'Your answer',
 		'your_comment_a' => 'Your comment on this answer:',
 		'your_comment_q' => 'Your comment on this question:',
+		'question_closed' => 'You can\'t add answer, because the question has been closed.',
+		'question_hidden' => 'You can\'t add answer, because the question has been hidden.',
+		'question_answer_hidden' => 'You can\'t add comment, because the post has been hidden.',
 	);
 
 

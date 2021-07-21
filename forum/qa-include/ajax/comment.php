@@ -45,11 +45,19 @@ $userid = qa_get_logged_in_userid();
     qa_db_full_child_posts_selectspec($userid, $parentid)
 );
 
-// Check if the question and parent exist, and whether the user has permission to do this
-if (isset($question['basetype'], $parent['basetype'])
-    && $question['type'] === 'Q' && ($parent['type'] === 'Q' || $parent['type'] === 'A')
-    && !qa_user_post_permit_error('permit_post_c', $parent, QA_LIMIT_COMMENTS)
+if (
+    isset($question['basetype'], $parent['basetype'])
+    && $question['basetype'] === 'Q' && ($parent['basetype'] === 'Q' || $parent['basetype'] === 'A')
 ) {
+    if ($question['type'] === 'Q_HIDDEN' || $parent['type'] === 'A_HIDDEN') {
+        echo "QA_AJAX_RESPONSE\n0\n" . qa_lang('question/question_answer_hidden');
+        return;
+    }
+    if (qa_user_post_permit_error('permit_post_c', $parent, QA_LIMIT_COMMENTS)) {
+        echo "QA_AJAX_RESPONSE\n0\n" . qa_lang('question/comment_limit');
+        return;
+    }
+
     require_once QA_INCLUDE_DIR . 'app/captcha.php';
     require_once QA_INCLUDE_DIR . 'app/format.php';
     require_once QA_INCLUDE_DIR . 'app/post-create.php';
@@ -63,41 +71,44 @@ if (isset($question['basetype'], $parent['basetype'])
     $commentid = qa_page_q_add_c_submit($question, $parent, $children, $usecaptcha, $in, $errors);
 
     // If successful, page content will be updated via Ajax
-    if (isset($commentid)) {
-        $children = qa_db_select_with_pending(qa_db_full_child_posts_selectspec($userid, $parentid));
-        $parent = array_merge($parent, qa_page_q_post_rules(
-            $parent,
-            ($questionid == $parentid) ? null : $question,
-            null,
-            $children
-        ));
-        // in theory we should retrieve the parent's siblings for the above, but they're not going to be relevant
-
-        foreach ($children as $key => $child) {
-            $children[$key] = array_merge($child, qa_page_q_post_rules($child, $parent, $children, null));
-        }
-        $usershtml = qa_userids_handles_html($children, true);
-        qa_sort_by($children, 'created');
-        $c_list = qa_page_q_comment_follow_list($question, $parent, $children, true, $usershtml, false, null);
-
-        $themeclass = qa_load_theme_class(qa_get_site_theme(), 'ajax-comments', null, null);
-        $themeclass->initialize();
-
-        // Return only new comments
-        $ids = array_keys($c_list['cs']);
-        $from_id = find_next_comment_id((int) qa_post_text('last_comment_id'), $ids);
-        $index = array_search($from_id, $ids);
-        if ($index !== false) {
-            $c_list['cs'] = array_slice($c_list['cs'], $index, null, true);
-        }
-
-        // Send back the ID of the new comment and HTML
-        echo "QA_AJAX_RESPONSE\n1\n";
-        echo qa_anchor('C', $commentid) . "\n";
-        $themeclass->c_list_items($c_list['cs']);
-
+    if ($commentid === null) {
+        echo "QA_AJAX_RESPONSE\n0\n" . implode(' ', $errors ?? []);
         return;
     }
+
+    $children = qa_db_select_with_pending(qa_db_full_child_posts_selectspec($userid, $parentid));
+    $parent = array_merge($parent, qa_page_q_post_rules(
+        $parent,
+        ($questionid == $parentid) ? null : $question,
+        null,
+        $children
+    ));
+    // in theory we should retrieve the parent's siblings for the above, but they're not going to be relevant
+
+    foreach ($children as $key => $child) {
+        $children[$key] = array_merge($child, qa_page_q_post_rules($child, $parent, $children, null));
+    }
+    $usershtml = qa_userids_handles_html($children, true);
+    qa_sort_by($children, 'created');
+    $c_list = qa_page_q_comment_follow_list($question, $parent, $children, true, $usershtml, false, null);
+
+    $themeclass = qa_load_theme_class(qa_get_site_theme(), 'ajax-comments', null, null);
+    $themeclass->initialize();
+
+    // Return only new comments
+    $ids = array_keys($c_list['cs']);
+    $from_id = find_next_comment_id((int) qa_post_text('last_comment_id'), $ids);
+    $index = array_search($from_id, $ids);
+    if ($index !== false) {
+        $c_list['cs'] = array_slice($c_list['cs'], $index, null, true);
+    }
+
+    // Send back the ID of the new comment and HTML
+    echo "QA_AJAX_RESPONSE\n1\n";
+    echo qa_anchor('C', $commentid) . "\n";
+    $themeclass->c_list_items($c_list['cs']);
+
+    return;
 }
 
-echo "QA_AJAX_RESPONSE\n0\nUNAVAILABLE"; // fall back to non-Ajax submission if there were any problems
+echo "QA_AJAX_RESPONSE\n0"; // fall back to non-Ajax submission if there were any problems

@@ -33,12 +33,17 @@ $userid = qa_get_logged_in_userid();
 );
 
 // Check if the question exists, is not hidden, and whether the user has permission to do this
-if (isset($question['basetype']) && $question['type'] === 'Q'
-    && !qa_user_post_permit_error('permit_post_a', $question, QA_LIMIT_ANSWERS)
-) {
+if (isset($question['basetype']) && $question['basetype'] === 'Q') {
+    if ($question['type'] === 'Q_HIDDEN') {
+        echo "QA_AJAX_RESPONSE\n0\n" . qa_lang('question/question_hidden');
+        return;
+    }
     if ($question['closedbyid'] !== null) {
-        echo "QA_AJAX_RESPONSE\n0\nALREADY_CLOSED";
-
+        echo "QA_AJAX_RESPONSE\n0\n" . qa_lang('question/question_closed');
+        return;
+    }
+    if (qa_user_post_permit_error('permit_post_a', $question, QA_LIMIT_ANSWERS)) {
+        echo "QA_AJAX_RESPONSE\n0\n" . qa_lang('question/answer_limit');
         return;
     }
 
@@ -55,34 +60,37 @@ if (isset($question['basetype']) && $question['type'] === 'Q'
     $answerid = qa_page_q_add_a_submit($question, $answers, $usecaptcha, $in, $errors);
 
     // If successful, page content will be updated via Ajax
-    if (isset($answerid)) {
-        $answer = qa_db_select_with_pending(qa_db_full_post_selectspec($userid, $answerid));
-        $question = array_merge($question, qa_page_q_post_rules($question, null, null, $childposts));
-        $answer = array_merge($answer, qa_page_q_post_rules($answer, $question, $answers, null));
-        $usershtml = qa_userids_handles_html([$answer], true);
-        $a_view = qa_page_q_answer_view($question, $answer, false, $usershtml, false);
-
-        $themeclass = qa_load_theme_class(qa_get_site_theme(), 'ajax-answer', null, null);
-        $themeclass->initialize();
-
-        echo "QA_AJAX_RESPONSE\n1\n";
-
-        // Send back whether the 'answer' button should still be visible
-        echo (int)qa_opt('allow_multi_answers') . "\n";
-
-        // Send back the count of answers
-        $countanswers = $question['acount'] + 1;
-        if ($countanswers == 1) {
-            echo qa_lang_html('question/1_answer_title') . "\n";
-        } else {
-            echo qa_lang_html_sub('question/x_answers_title', $countanswers) . "\n";
-        }
-
-        // Send back the HTML
-        $themeclass->a_list_item($a_view);
-
+    if ($answerid === null) {
+        echo "QA_AJAX_RESPONSE\n0\n" . implode(' ', $errors ?? []);
         return;
     }
+
+    $answer = qa_db_select_with_pending(qa_db_full_post_selectspec($userid, $answerid));
+    $question = array_merge($question, qa_page_q_post_rules($question, null, null, $childposts));
+    $answer = array_merge($answer, qa_page_q_post_rules($answer, $question, $answers, null));
+    $usershtml = qa_userids_handles_html([$answer], true);
+    $a_view = qa_page_q_answer_view($question, $answer, false, $usershtml, false);
+
+    $themeclass = qa_load_theme_class(qa_get_site_theme(), 'ajax-answer', null, null);
+    $themeclass->initialize();
+
+    echo "QA_AJAX_RESPONSE\n1\n";
+
+    // Send back whether the 'answer' button should still be visible
+    echo (int)qa_opt('allow_multi_answers') . "\n";
+
+    // Send back the count of answers
+    $countanswers = $question['acount'] + 1;
+    if ($countanswers == 1) {
+        echo qa_lang_html('question/1_answer_title') . "\n";
+    } else {
+        echo qa_lang_html_sub('question/x_answers_title', $countanswers) . "\n";
+    }
+
+    // Send back the HTML
+    $themeclass->a_list_item($a_view);
+
+    return;
 }
 
-echo "QA_AJAX_RESPONSE\n0\nUNAVAILABLE"; // fall back to non-Ajax submission if there were any problems
+echo "QA_AJAX_RESPONSE\n0"; // fall back to non-Ajax submission if there were any problems
