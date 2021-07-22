@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function runAsyncQuestionsList() {
+document.addEventListener('DOMContentLoaded', function runWebSocketIntegration() {
 	const { pathname, hostname, protocol } = window.location;
 	const PORT = window.WS_PORT || 3000;
 	const isMainOrActivityPage = /^$|\/$|^(\/?)activity/.test(pathname);

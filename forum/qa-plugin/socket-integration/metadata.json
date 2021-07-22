@@ -1,7 +1,7 @@
 {
-    "name": "Async lists",
+    "name": "Socket integration",
     "uri": "",
-    "description": "Asynchronous lists - home and activity",
+    "description": "Integration for Node server and socket",
     "version": "1.0",
     "date": "2021-03-27",
     "author": "CodersCommunity",
